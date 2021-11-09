@@ -242,7 +242,7 @@ final class TimelineView: UIView, EventDateProtocol, CalendarTimer {
         // filter events
         let recurringEvents = events.filter({ $0.recurringType != .none })
         let allEventsForDates = events.filter { (event) -> Bool in
-            return dates.contains(where: { compareStartDate($0, with: event) || compareEndDate($0, with: event) || (checkMultipleDate($0, with: event) && type == .day) })
+            return dates.contains(where: { compareStartDate($0, with: event) || compareEndDate($0, with: event) || (checkMultipleDate($0, with: event) && (type == .day || type == .week)) })
         }
         let filteredEvents = allEventsForDates.filter({ !$0.isAllDay })
         let filteredAllDayEvents = allEventsForDates.filter({ $0.isAllDay })

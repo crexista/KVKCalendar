@@ -43,16 +43,11 @@ extension EventDateProtocol {
     }
     
     func checkMultipleDate(_ date: Date?, with event: Event) -> Bool {
-        let startDate = event.start.timeIntervalSince1970
-        let endDate = event.end.timeIntervalSince1970
-        
-        // workaround to fix crash https://github.com/kvyatkovskys/KVKCalendar/issues/191
-        guard let timeInterval = date?.timeIntervalSince1970, endDate > startDate else { return false }
-        
-        return event.start.day != event.end.day
-            && startDate...endDate ~= timeInterval
-            && event.start.year == date?.year
-            && event.start.month == date?.month
+        guard let date = date else { return false }
+        guard event.end > event.start else { return false }
+        let dateInterval = DateInterval(start: event.start, end: event.end)
+
+        return event.start.day != event.end.day && dateInterval.contains(date)
     }
 }
 
