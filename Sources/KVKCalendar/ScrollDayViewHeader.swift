@@ -188,7 +188,9 @@ final class ScrollDayHeaderView: UIView {
         
         if isDelay {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.collectionView.isPagingEnabled = false
                 self.collectionView.scrollToItem(at: IndexPath(row: idx, section: 0), at: .left, animated: isAnimate)
+                self.collectionView.isPagingEnabled = true
             }
         } else {
             collectionView.scrollToItem(at: IndexPath(row: idx, section: 0), at: .left, animated: isAnimate)
